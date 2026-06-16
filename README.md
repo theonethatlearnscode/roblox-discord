@@ -35,6 +35,19 @@ Copy that — you paste it into the Roblox script ([step 3](#3-add-the-script-to
 
 > **Need to change `DISCORD_WEBHOOK` or `API_KEY` later?** In Vercel: **your project → Settings → Environment Variables**. Edit the value, then go to the **Deployments** tab and **Redeploy** the latest one for it to take effect.
 
+## Does anything need to stay on / running?
+
+**No.** You do **not** need to keep a server running, a browser tab open, or your computer on.
+
+This runs as a **Vercel Serverless Function**. It is *not* a bot that has to stay online. Vercel automatically wakes the function the instant your Roblox game sends an event, forwards it to Discord, and then shuts it back down — all in a fraction of a second. You deploy it **once** and it stays live 24/7 on its own.
+
+The only requirements are:
+
+- The Vercel deployment exists (deploy once — don't delete the project).
+- `DISCORD_WEBHOOK` and `API_KEY` are set in the project's environment variables.
+
+That's it. Your PC can be off and events will still reach Discord.
+
 ## Environment variables (reference)
 
 | Variable          | Where it comes from | Description |
