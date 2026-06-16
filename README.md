@@ -8,20 +8,41 @@ A secure Vercel serverless endpoint that forwards Roblox player **join**, **leav
 
 Requests are authenticated with a secret API key, so only your Roblox game can post to your Discord.
 
-## Deploy your own
+## 🚀 One-click deploy
 
-Each person runs their own isolated instance pointed at their own Discord server. Click the button below — Vercel will clone this repo into your account and prompt you for the required environment variables during setup.
+**Click this button, fill in 2 boxes, done.**
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/theonethatlearnscode/roblox-discord&env=DISCORD_WEBHOOK,API_KEY&envDescription=Your%20Discord%20webhook%20URL%20and%20a%20secret%20API%20key%20you%20choose&envLink=https://github.com/theonethatlearnscode/roblox-discord%23environment-variables)
 
-## Environment variables
+When Vercel opens, it asks you for exactly two things:
+
+| Box on the Vercel screen | What to paste in |
+| ------------------------ | ---------------- |
+| **`DISCORD_WEBHOOK`** | Your Discord webhook URL — Discord → channel **Edit Channel → Integrations → Webhooks → New Webhook → Copy URL** |
+| **`API_KEY`** | Any password you make up, e.g. `mysecret123xyz`. Just remember it — you paste the same one into Roblox. |
+
+Then click **Deploy** and wait ~1 minute. That's it.
+
+### After it deploys
+
+Vercel gives you a URL like `https://your-project.vercel.app`. Your endpoint is that URL **+ `/api/roblox`**:
+
+```
+https://your-project.vercel.app/api/roblox
+```
+
+Copy that — you paste it into the Roblox script ([step 3](#3-add-the-script-to-roblox-studio)).
+
+> **Need to change `DISCORD_WEBHOOK` or `API_KEY` later?** In Vercel: **your project → Settings → Environment Variables**. Edit the value, then go to the **Deployments** tab and **Redeploy** the latest one for it to take effect.
+
+## Environment variables (reference)
 
 | Variable          | Where it comes from | Description |
 | ----------------- | ------------------- | ----------- |
 | `DISCORD_WEBHOOK` | **Discord**         | The webhook URL that messages are posted to. |
 | `API_KEY`         | **You invent it**   | A secret shared password. The Roblox script must send this exact value. |
 
-> `API_KEY` does **not** come from Roblox. It is a secret you make up yourself so only your game can call your endpoint. Generate one with `openssl rand -base64 32`, or use any long random string.
+> `API_KEY` does **not** come from Roblox. It is a secret you make up yourself so only your game can call your endpoint.
 
 ## Setup instructions
 
@@ -33,12 +54,7 @@ Each person runs their own isolated instance pointed at their own Discord server
 
 ### 2. Deploy to Vercel
 
-1. Click the **Deploy with Vercel** button above.
-2. When prompted, paste your `DISCORD_WEBHOOK` and enter an `API_KEY` of your choosing.
-3. After deploying, copy your deployment URL (e.g. `https://your-project.vercel.app`).
-   - Your endpoint is `https://your-project.vercel.app/api/roblox`.
-
-> Already deployed? Add or edit these in **Vercel → Project → Settings → Environment Variables**, then redeploy.
+Use the **One-click deploy** button at the top. Paste your `DISCORD_WEBHOOK` and a made-up `API_KEY`, click Deploy, then copy your `https://your-project.vercel.app/api/roblox` endpoint URL.
 
 ### 3. Add the script to Roblox Studio
 
