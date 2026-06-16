@@ -5,8 +5,13 @@ export const runtime = "nodejs"
 const WEBHOOK = process.env.DISCORD_WEBHOOK
 const API_KEY = process.env.API_KEY
 
-function avatar(userId: number) {
-  return `https://www.roblox.com/headshot-thumbnail/image?userId=${userId}&width=150&height=150&format=png`
+async function avatar(userId: number): Promise<string> {
+  const res = await fetch(
+    `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=150x150&format=Png&isCircular=true`
+  )
+
+  const data = await res.json()
+  return data.data?.[0]?.imageUrl
 }
 
 export async function POST(req: NextRequest) {
