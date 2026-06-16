@@ -168,10 +168,13 @@ export async function POST(req: NextRequest) {
   }
 
   const bodyKey =
-    typeof body === "object" && body !== null ? (body as Record<string, unknown>).apiKey : undefined
-  const providedKey = headerKey ?? (typeof bodyKey === "string" ? bodyKey : null)
+  typeof body === "object" && body !== null && typeof (body as any).apiKey === "string"
+    ? (body as any).apiKey
+    : null
 
-  if (!providedKey || providedKey !== expectedKey) {
+  const providedKey = headerKey || bodyKey
+
+  if (providedKey !== expectedKey) {
     return NextResponse.json({ error: "Unauthorized: invalid or missing API key." }, { status: 401 })
   }
 
